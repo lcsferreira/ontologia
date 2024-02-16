@@ -1,0 +1,88 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:j.0="Empresa:"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#" > 
+  <rdf:Description rdf:about="Empresa:Telefone">
+    <rdfs:domain rdf:resource="Empresa:Funcionario"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Comissao">
+    <rdfs:domain rdf:resource="Empresa:Representante"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Rafael">
+    <j.0:Meta rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4400</j.0:Meta>
+    <j.0:Salario rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1100</j.0:Salario>
+    <j.0:Telefone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7744444444</j.0:Telefone>
+    <rdf:type rdf:resource="Empresa:Embalador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Joao">
+    <j.0:Salario rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4000</j.0:Salario>
+    <j.0:Telefone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7766666666</j.0:Telefone>
+    <rdf:type rdf:resource="Empresa:Gerente_de_Produção"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Salario">
+    <rdfs:domain rdf:resource="Empresa:Funcionario"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Ana">
+    <j.0:Salario rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5000</j.0:Salario>
+    <j.0:Telefone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7788888888</j.0:Telefone>
+    <rdf:type rdf:resource="Empresa:Gerente_de_vendas"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Luiz">
+    <j.0:Salario rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1000</j.0:Salario>
+    <j.0:Telefone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7799999999</j.0:Telefone>
+    <rdf:type rdf:resource="Empresa:Vendedor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Operador">
+    <rdfs:subClassOf rdf:resource="Empresa:Gerente_de_Produção"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Gerente_de_vendas">
+    <rdfs:subClassOf rdf:resource="Empresa:Funcionario"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Paulo">
+    <j.0:Comissao rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.05</j.0:Comissao>
+    <j.0:Salario rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1000</j.0:Salario>
+    <j.0:Telefone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7777777777</j.0:Telefone>
+    <rdf:type rdf:resource="Empresa:Representante"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Augusto">
+    <j.0:Meta rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2200</j.0:Meta>
+    <j.0:Salario rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1200</j.0:Salario>
+    <j.0:Telefone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">7755555555</j.0:Telefone>
+    <rdf:type rdf:resource="Empresa:Operador"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Funcionario">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Meta">
+    <rdfs:domain rdf:resource="Empresa:Embalador"/>
+    <rdfs:domain rdf:resource="Empresa:Operador"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Gerente_de_Produção">
+    <rdfs:subClassOf rdf:resource="Empresa:Funcionario"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Vendedor">
+    <rdfs:subClassOf rdf:resource="Empresa:Gerente_de_vendas"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Embalador">
+    <rdfs:subClassOf rdf:resource="Empresa:Gerente_de_Produção"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="Empresa:Representante">
+    <rdfs:subClassOf rdf:resource="Empresa:Gerente_de_vendas"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+</rdf:RDF>
