@@ -37,18 +37,25 @@ public class Ontologia {
         criarOntologia();
         verOntologia();
         
-        Property salarioAugusto = model.getProperty(NS+":"+"Salario");
+//        Property salarioAugusto = model.getProperty(NS+":"+"Salario");
+//        
+//        Individual augusto = model.getIndividual(NS+":"+"Augusto");
+//        Literal novoSalario = model.createTypedLiteral(4000);
+//        augusto.setPropertyValue(salarioAugusto, novoSalario);
         
-        Individual augusto = model.getIndividual(NS+":"+"Augusto");
-        Literal novoSalario = model.createTypedLiteral(4000);
-        augusto.setPropertyValue(salarioAugusto, novoSalario);
-        
-        verOntologia();
+//        verOntologia();
+//        Individual joao = model.createIndividual(NS+":"+"Joao", funcionario);
+//        joao.setPropertyValue(gerenteDeProjeto, joao);
+//        Individual sistema = model.createIndividual(NS+":"+"Sistema", projetoInterno);
+//        Individual tech = model.createIndividual(NS+":"+"Tecnologia", divisao);
+//        joao.addProperty(trabalhaEm, sistema);
+//        joao.addProperty(trabalhaPara, tech);
         
     }
     
     public static void verOntologia(){
         System.out.println(getRoot(model));
+        System.out.println(" ");
         
         for(Iterator<OntClass> i = model.listClasses(); i.hasNext();){
             OntClass cls = i.next();
@@ -91,107 +98,80 @@ public class Ontologia {
         
         // funcionarios
         OntClass funcionario = model.createClass(NS + ":" + "Funcionario");
-        OntClass gerenteDeVendas = model.createClass(NS + ":" + "Gerente_de_vendas");
-        OntClass vendedor = model.createClass(NS + ":" + "Vendedor");
-        OntClass representante = model.createClass(NS + ":" + "Representante");
-        OntClass gerenteDeProducao = model.createClass(NS + ":" + "Gerente_de_Produção");
-        OntClass operador = model.createClass(NS + ":" + "Operador");
-        OntClass embalador = model.createClass(NS + ":" + "Embalador");
-        
-        funcionario.addSubClass(gerenteDeVendas);
-        funcionario.addSubClass(gerenteDeProducao);
-        gerenteDeVendas.addSubClass(vendedor);
-        gerenteDeVendas.addSubClass(representante);
-        gerenteDeProducao.addSubClass(operador);
-        gerenteDeProducao.addSubClass(embalador);
+        DatatypeProperty cargo = model.createDatatypeProperty(NS+":"+"Cargo");
 
-        DatatypeProperty telefone = model.createDatatypeProperty(NS+":"+"Telefone");
-        telefone.addRange(XSD.xstring);
-        telefone.addDomain(funcionario);
+        DatatypeProperty gerenteDeProjeto = model.createDatatypeProperty(cargo+":"+"Gerente_de_projeto");
+        DatatypeProperty analistaDeNegocios = model.createDatatypeProperty(cargo+":"+"Analista_de_negocios");
+        DatatypeProperty arquitetoDeSistemas = model.createDatatypeProperty(cargo+":"+"Arquiteto_de_sistemas");
+        DatatypeProperty testador =model.createDatatypeProperty(cargo + ":" + "Testador");
+        DatatypeProperty desenvolvedor=model.createDatatypeProperty(cargo + ":" + "Desenvolvedor");
+        DatatypeProperty administradorBancoDados=model.createDatatypeProperty(cargo + ":" + "Administrador"); 
         
-        DatatypeProperty salario = model.createDatatypeProperty(NS+":"+"Salario");
-        salario.addRange(XSD.xint);
-        salario.addDomain(funcionario);
+        cargo.addSubProperty(gerenteDeProjeto);
+        cargo.addSubProperty(analistaDeNegocios);
+        cargo.addSubProperty(arquitetoDeSistemas);
+        cargo.addSubProperty(testador);
+        cargo.addSubProperty(desenvolvedor);
+        cargo.addSubProperty(administradorBancoDados);
         
-        DatatypeProperty meta = model.createDatatypeProperty(NS+":"+"Meta");
-        meta.addRange(XSD.xfloat);
-        meta.addDomain(operador);
-        meta.addDomain(embalador);
+        cargo.addDomain(funcionario);
         
-        DatatypeProperty comissao = model.createDatatypeProperty(NS+":"+"Comissao");
-        comissao.addRange(XSD.xfloat);
-        comissao.addDomain(representante);
-
-        // projetos
-        OntClass projeto = model.createClass(NS + ":" + "Projeto");
-        OntClass projetoInterno = model.createClass(NS + ":" + "Projeto_Interno");
-        OntClass projetoExterno = model.createClass(NS + ":" + "Projeto_Externo");
+        OntClass projeto = model.createClass(NS+":"+"Projeto");
+        OntClass projetoInterno = model.createClass(projeto + ":" + "Projeto_interno");
+        OntClass projetoExterno = model.createClass(projeto + ":" + "Projeto_externo");
         
         projeto.addSubClass(projetoInterno);
         projeto.addSubClass(projetoExterno);
-        
-        DatatypeProperty nomeProjeto = model.createDatatypeProperty(NS + ":" + "Nome_Projeto");
-        nomeProjeto.addRange(XSD.xstring);
-        nomeProjeto.addDomain(projeto);
-        
-        DatatypeProperty dataInicio = model.createDatatypeProperty(NS + ":" + "Data_Inicio");
-        dataInicio.addRange(XSD.xstring);
-        dataInicio.addDomain(projeto);
-        
-        DatatypeProperty dataFim = model.createDatatypeProperty(NS + ":" + "Data_Fim");
-        dataFim.addRange(XSD.xstring);
-        dataFim.addDomain(projeto);
-        
-        DatatypeProperty status = model.createDatatypeProperty(NS + ":" + "Status");
-        status.addRange(XSD.xstring);
-        status.addDomain(projeto);
 
-        // divisao (RH, Financeiro, Producao)
-        OntClass divisao = model.createClass(NS + ":" + "Divisao");
-        OntClass rh = model.createClass(NS + ":" + "RH");
-        OntClass financeiro = model.createClass(NS + ":" + "Financeiro");
-        OntClass producao = model.createClass(NS + ":" + "Producao");
 
-        divisao.addSubClass(rh);
-        divisao.addSubClass(financeiro);
-        divisao.addSubClass(producao);
+        OntClass divisao = model.createClass(NS+":"+"Divisao");
+        
+        DatatypeProperty trabalhaPara = model.createDatatypeProperty(divisao + ":" + "Trabalha_para");
+        DatatypeProperty trabalhaEm = model.createDatatypeProperty(divisao + ":" + "Trabalha_em");
+        
+        model.add(funcionario, trabalhaPara, divisao);
+        model.add(funcionario, trabalhaEm, projeto);
 
-        DatatypeProperty nomeDivisao = model.createDatatypeProperty(NS + ":" + "Nome_Divisao");
-        nomeDivisao.addRange(XSD.xstring);
-        nomeDivisao.addDomain(divisao);
+
+        Individual joao = model.createIndividual(NS+":"+"Joao", funcionario);
+        joao.setPropertyValue(gerenteDeProjeto, joao);
+        Individual sistema = model.createIndividual(projetoInterno+":"+"Sistema", projetoInterno);
+        Individual tech = model.createIndividual(divisao+":"+"Tecnologia", divisao);
+        joao.addLiteral(trabalhaEm, sistema);
+        joao.addLiteral(trabalhaPara, tech);
 
         
-        // individuos
-        
-        Individual ana = model.createIndividual(NS+":"+"Ana",gerenteDeVendas);
-        Literal telefoneAna = model.createTypedLiteral("7788888888");
-        ana.setPropertyValue(telefone, telefoneAna);
-        Literal salarioAna = model.createTypedLiteral(5000);
-        ana.setPropertyValue(salario, salarioAna);
-        
-        Individual luiz = model.createIndividual(NS+":"+"Luiz",vendedor);
-        Literal telefoneLuiz = model.createTypedLiteral("7799999999");
-        luiz.setPropertyValue(telefone, telefoneLuiz);
-        luiz.setPropertyValue(salario,model.createTypedLiteral(1000));
-        
-        Individual paulo = model.createIndividual(NS+":"+"Paulo",representante);
-        paulo.setPropertyValue(telefone, model.createTypedLiteral("7777777777"));
-        paulo.setPropertyValue(salario,model.createTypedLiteral(1000));
-        paulo.setPropertyValue(comissao,model.createTypedLiteral(0.05));
-        
-        Individual joao = model.createIndividual(NS+":"+"Joao",gerenteDeProducao);
-        joao.setPropertyValue(telefone, model.createTypedLiteral("7766666666"));
-        joao.setPropertyValue(salario,model.createTypedLiteral(4000));
-        
-        Individual augusto = model.createIndividual(NS+":"+"Augusto",operador);
-        augusto.setPropertyValue(telefone, model.createTypedLiteral("7755555555"));
-        augusto.setPropertyValue(salario,model.createTypedLiteral(1200));
-        augusto.setPropertyValue(meta,model.createTypedLiteral(2200));
-        
-        Individual rafael = model.createIndividual(NS+":"+"Rafael",embalador);
-        rafael.setPropertyValue(telefone, model.createTypedLiteral("7744444444"));
-        rafael.setPropertyValue(salario,model.createTypedLiteral(1100));
-        rafael.setPropertyValue(meta,model.createTypedLiteral(4400));
+//        // individuos
+//        
+//        Individual ana = model.createIndividual(NS+":"+"Ana",gerenteDeVendas);
+//        Literal telefoneAna = model.createTypedLiteral("7788888888");
+//        ana.setPropertyValue(telefone, telefoneAna);
+//        Literal salarioAna = model.createTypedLiteral(5000);
+//        ana.setPropertyValue(salario, salarioAna);
+//        
+//        Individual luiz = model.createIndividual(NS+":"+"Luiz",vendedor);
+//        Literal telefoneLuiz = model.createTypedLiteral("7799999999");
+//        luiz.setPropertyValue(telefone, telefoneLuiz);
+//        luiz.setPropertyValue(salario,model.createTypedLiteral(1000));
+//        
+//        Individual paulo = model.createIndividual(NS+":"+"Paulo",representante);
+//        paulo.setPropertyValue(telefone, model.createTypedLiteral("7777777777"));
+//        paulo.setPropertyValue(salario,model.createTypedLiteral(1000));
+//        paulo.setPropertyValue(comissao,model.createTypedLiteral(0.05));
+//        
+//        Individual joao = model.createIndividual(NS+":"+"Joao",gerenteDeProducao);
+//        joao.setPropertyValue(telefone, model.createTypedLiteral("7766666666"));
+//        joao.setPropertyValue(salario,model.createTypedLiteral(4000));
+//        
+//        Individual augusto = model.createIndividual(NS+":"+"Augusto",operador);
+//        augusto.setPropertyValue(telefone, model.createTypedLiteral("7755555555"));
+//        augusto.setPropertyValue(salario,model.createTypedLiteral(1200));
+//        augusto.setPropertyValue(meta,model.createTypedLiteral(2200));
+//        
+//        Individual rafael = model.createIndividual(NS+":"+"Rafael",embalador);
+//        rafael.setPropertyValue(telefone, model.createTypedLiteral("7744444444"));
+//        rafael.setPropertyValue(salario,model.createTypedLiteral(1100));
+//        rafael.setPropertyValue(meta,model.createTypedLiteral(4400));
         
         File file = new File("Empresa.owl");
         
